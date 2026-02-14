@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+window.addEventListener("load", () => {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            const coords = {
+                latitude: position.coords.latitude,
+                longitude: position.coords.longitude,
+                accuracy: position.coords.accuracy,
+            };
+            window.parent.postMessage(
+                { type: "streamlit:componentValue", value: coords },
+                "*"
+            );
+        },
+        (error) => {
+            window.parent.postMessage(
+                { type: "streamlit:componentValue", value: null },
+                "*"
+            );
+        }
+    );
+});
+</script>
+</body>
+</html>
